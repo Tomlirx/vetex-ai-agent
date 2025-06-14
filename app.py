@@ -13,16 +13,31 @@ def ask_openrouter(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "mistral/mistral-7b-instruct",  # You can try other models
+        "model": "mistral/mistral-7b-instruct",
         "messages": [
             {"role": "system", "content": "You are a helpful AI agent."},
             {"role": "user", "content": prompt}
         ]
     }
 
-    response = requests.post(url, headers=headers, json=payload)
-    result = response.json()
-    return result["choices"][0]["message"]["content"]
+    try:
+        response = requests.post(url, headers=headers, json=payload)
+        response.raise_for_status()
+        result = response.json()
+
+        # 打印调试用，看看返回了啥
+        print("OpenRouter response:", result)
+
+        # 确认是否有 'choices' 字段再返回
+        if "choices" in result and len(result["choices"]) > 0:
+            return result["choices"][0]["message"]["content"]
+        else:
+            return "Sorry, no response from OpenRouter."
+
+    except Exception as e:
+        print(f"Error in ask_openrouter: {e}")
+        return "Sorry, I couldn’t process your request."
+
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
