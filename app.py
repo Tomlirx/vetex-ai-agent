@@ -13,7 +13,7 @@ def test():
         return f"Error: {e}"
 
 #OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Set this in Railway environment settings
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 
 def ask_openrouter(prompt):
     print(f"Using API key: {OPENROUTER_API_KEY[:8]}...")  # Debug log of partial key
