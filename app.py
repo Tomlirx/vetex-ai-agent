@@ -4,6 +4,14 @@ import os
 
 app = Flask(__name__)
 
+@app.route("/test")
+def test():
+    try:
+        r = requests.get("https://openrouter.ai")
+        return f"Status code: {r.status_code}"
+    except Exception as e:
+        return f"Error: {e}"
+
 #OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Set this in Railway environment settings
 OPENROUTER_API_KEY = "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"
 
@@ -50,12 +58,3 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-import requests
-
-@app.route("/test")
-def test():
-    try:
-        r = requests.get("https://openrouter.ai")
-        return f"Status code: {r.status_code}"
-    except Exception as e:
-        return f"Error: {e}"
