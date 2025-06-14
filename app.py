@@ -16,6 +16,7 @@ def test():
 OPENROUTER_API_KEY = "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"
 
 def ask_openrouter(prompt):
+    print(f"Using API key: {OPENROUTER_API_KEY[:8]}...")  # Debug log of partial key
     url = "https://openrouter.ai/api/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -34,10 +35,8 @@ def ask_openrouter(prompt):
         response.raise_for_status()
         result = response.json()
 
-        # 打印调试用，看看返回了啥
-        print("OpenRouter response:", result)
+        print("OpenRouter response:", result)  # Debug log for full response
 
-        # 确认是否有 'choices' 字段再返回
         if "choices" in result and len(result["choices"]) > 0:
             return result["choices"][0]["message"]["content"]
         else:
