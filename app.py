@@ -13,7 +13,7 @@ def ask_openrouter(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "mistral/mistral-7b-instruct",
+        "model": "deepseek/deepseek-chat-v3-0324:free",
         "messages": [
             {"role": "system", "content": "You are a helpful AI agent."},
             {"role": "user", "content": prompt}
