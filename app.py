@@ -4,7 +4,8 @@ import os
 
 app = Flask(__name__)
 
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Set this in Railway environment settings
+#OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Set this in Railway environment settings
+OPENROUTER_API_KEY = "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"
 
 def ask_openrouter(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
