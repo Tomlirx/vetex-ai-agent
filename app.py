@@ -50,3 +50,12 @@ def webhook():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+import requests
+
+@app.route("/test")
+def test():
+    try:
+        r = requests.get("https://openrouter.ai")
+        return f"Status code: {r.status_code}"
+    except Exception as e:
+        return f"Error: {e}"
