@@ -4,13 +4,13 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/test")
-def test():
-    try:
-        r = requests.get("https://openrouter.ai")
-        return f"Status code: {r.status_code}"
-    except Exception as e:
-        return f"Error: {e}"
+@app.route("/test", methods=["GET"])
+def test_openrouter():
+    test_prompt = "Tell me a joke"
+    print(f"Calling OpenRouter with prompt: {test_prompt}")
+    reply = ask_openrouter(test_prompt)
+    return jsonify({"reply": reply})
+
 
 #OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Set this in Railway environment settings
 OPENROUTER_API_KEY = "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"
