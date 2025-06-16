@@ -19,8 +19,8 @@ def ask_openrouter(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-   # "model": "deepseek/deepseek-chat-v3-0324:free",
-    "model": "google/gemini-2.0-flash-exp:free",
+    "model": "deepseek/deepseek-r1-0528:free",
+    #"model": "google/gemini-2.0-flash-exp:free",
 
         
     "temperature": 0.9,  # Add this line to boost variation
