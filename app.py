@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
 import requests
+import os
+
 
 app = Flask(__name__)
 
 # Your valid OpenRouter API key (keep this secret in real usage)
-OPENROUTER_API_KEY = "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"
+#OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 
 def ask_openrouter(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
