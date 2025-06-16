@@ -1,1 +1,11 @@
-
+services:
+  - type: web
+    name: ai-agent
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: OPENROUTER_API_KEY
+        value: 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
