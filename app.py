@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import requests
 import os
 
-
 app = Flask(__name__)
+CORS(app)  # Allow all origins by default
 
-# Your valid OpenRouter API key (keep this secret in real usage)
-#OPENROUTER_API_KEY = "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"
+# Load API key from environment variable
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+
+if not OPENROUTER_API_KEY:
+    print("⚠️  OPENROUTER_API_KEY is not set. Please configure it in your environment!")
 
 def ask_openrouter(prompt):
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -47,13 +50,18 @@ def ask_openrouter(prompt):
 
     return "Sorry, I couldn't process your request."
 
-@app.route("/webhook", methods=["POST"])
+
+@app.route("/webhook", methods=["POST", "OPTIONS"])
 def webhook():
+    if request.method == "OPTIONS":
+        return '', 200  # Handle CORS preflight
+
     data = request.get_json(force=True)
     prompt = data.get("message", "")
     print(f"Received prompt via webhook: {prompt}")
     reply = ask_openrouter(prompt)
     return jsonify({"reply": reply})
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
