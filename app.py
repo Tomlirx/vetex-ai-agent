@@ -19,12 +19,13 @@ def ask_openrouter(prompt):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "deepseek/deepseek-chat-v3-0324:free",
-        "messages": [
-            {"role": "system", "content": "You are a helpful AI assistant."},
-            {"role": "user", "content": prompt}
-        ]
-    }
+    "model": "deepseek/deepseek-chat-v3-0324:free",
+    "temperature": 0.9,  # Add this line to boost variation
+    "messages": [
+        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "user", "content": prompt}
+    ]
+}
 
     try:
         print(f"Sending prompt to OpenRouter: {prompt}")
